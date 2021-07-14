@@ -10,15 +10,16 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     TextView text1,text2;
-    CheckBox chkAgree;
+    Switch chkAgree;
     RadioGroup rGroup1;
     RadioButton rdodog,rdorab,rdocat;
-    Button btnOK;
+    Button btnOK,btn1,btn2;
     ImageView imgpet;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         rdorab = findViewById(R.id.Rdorab);
         btnOK = findViewById(R.id.btnOK);
         imgpet = findViewById(R.id.Img);
+        btn1 = findViewById(R.id.btn1);
+        btn2 = findViewById(R.id.btn2);
         chkAgree.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -56,15 +59,32 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 switch (rGroup1.getCheckedRadioButtonId()){
                     case R.id.Rdodog:
-                        imgpet.setImageResource(R.drawable.dog);break;
+                        imgpet.setImageResource(R.drawable.oreo);break;
                     case R.id.Rdocat:
-                        imgpet.setImageResource(R.drawable.cat);break;
+                        imgpet.setImageResource(R.drawable.pie);break;
                     case R.id.Rdorab:
-                        imgpet.setImageResource(R.drawable.rabbit);break;
+                        imgpet.setImageResource(R.drawable.q10);break;
                     default:
                         Toast.makeText(MainActivity.this,"동물 먼저 선택하세요",Toast.LENGTH_SHORT).show();
                 }
             }
         });
+        findViewById(R.id.btn1).setOnClickListener(this);
+        findViewById(R.id.btn2).setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btn1:
+                chkAgree.setChecked(false);
+                rdorab.setChecked(false);
+                rdodog.setChecked(false);
+                rdocat.setChecked(false);
+                imgpet.setImageResource(0);
+                break;
+            case R.id.btn2:
+                this.finish();
+        }
     }
 }
